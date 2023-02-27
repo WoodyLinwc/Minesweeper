@@ -10,8 +10,13 @@ var flagEnabled = false;
 
 var gameOver = false;
 
+// TIMER
+let elapsedTime = 0; // variable to hold the elapsed time
+let timerInterval; // variable to hold the setInterval ID
+
 window.onload = function() {
     startGame();
+    startTimer();
 }
 
 function setMines() {
@@ -39,6 +44,7 @@ function startGame() {
     document.getElementById("mines-count").innerText = minesCount;
     document.getElementById("flag-button").addEventListener("click", setFlag);
     setMines();
+
 
     //populate our board
     for (let r = 0; r < rows; r++) {
@@ -174,4 +180,23 @@ function checkTile(r, c) {
         return 1;
     }
     return 0;
+}
+
+
+// timer to calculate 
+function startTimer() {
+  timerInterval = setInterval(() => {
+    elapsedTime++;
+    updateTimerDisplay(elapsedTime);
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+function updateTimerDisplay(time) {
+  // update the timer display with the elapsed time
+  const timerDisplay = document.getElementById('timer');
+  timerDisplay.textContent = time;
 }
